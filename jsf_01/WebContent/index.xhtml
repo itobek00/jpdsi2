@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+
+<ui:composition template="/templates/page-template.xhtml">
+<ui:define name="pageContent">
+	
+	<p:panel header="Kalkulator kredytowy, oblicz swoją ratę!" style="margin:5px auto; font-size:30px;">
+
+	<h:form id="bla">
+	
+	<h:panelGrid id="grid" columns="3" cellpadding="6">
+  		
+  		<p:outputLabel for="kwota" value="Kwota:"/>
+		<p:inputText id="kwota" value="#{calcBB.kwota}" required="true" requiredMessage="Nie wprowadzono kwoty"
+			converterMessage="Kwota musi byc liczba"
+			validatorMessage="Wpisana kwota musi byc wieksza niz 3000 lub mniejsza niz 500000">
+			<f:validateDoubleRange minimum="3000" maximum="500000"/>
+			</p:inputText>
+		<p:message for="kwota"/>
+  	
+		
+		<p:outputLabel for="procent" value="Procent:"/>
+		<p:inputText id="procent" value="#{calcBB.procent}" required="true" requiredMessage="Nie wprowadzono kwoty"
+		converterMessage="Oprocentowanie musi byc liczba" validatorMessage="Oprocentowanie musi byc wieksze od 0">
+	
+		  			<f:validateDoubleRange minimum="1"/>	
+		  			</p:inputText>
+		<p:message for="procent"/>
+		
+  		
+		
+		
+		<p:outputLabel for="ileLat" value="Lata:"/>
+		<p:inputText id="ileLat" value="#{calcBB.ileLat}" required="true" requiredMessage="Nie wprowadzono kwoty"
+		converterMessage="Lata musza byc liczba" validatorMessage="Liczba lat musi byc wieksza niz 1">
+	
+		  			<f:validateDoubleRange minimum="1"/>
+		  			</p:inputText>
+		<p:message for="ileLat"/>
+	
+		</h:panelGrid>	
+		
+		<p:messages id="msg" />
+
+		<p:commandButton value="Oblicz kredyt" action="#{calcBB.calc()}" update="@form"/>
+		
+		<p:commandButton value="Oblicz kredyt (AJAX)" action="#{calcBB.calc_AJAX()}" update="msg">
+			<!--<f:ajax execute="@form" render="msg" /> -->
+		</p:commandButton>
+		<br>
+		<p:commandLink value="Informacje" action="#{calcBB.info()}" />
+		</br>
+		
+	</h:form>
+	</p:panel>
+	
+	</ui:define>
+
+</ui:composition>
+
+
+</html>
